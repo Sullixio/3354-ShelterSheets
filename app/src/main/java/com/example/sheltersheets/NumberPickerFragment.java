@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import java.util.ArrayList;
+
 public class NumberPickerFragment extends DialogFragment {
 
     public static final String NUMBER_PICKER_FRAGMENT_KEY = "NUMBER_PICKER_FRAGMENT_KEY";
@@ -57,37 +59,43 @@ public class NumberPickerFragment extends DialogFragment {
                         /****************************************/
 
 
-
                         Bundle aBundle = getArguments();
                         User user = aBundle.getBundle(MainActivity.NEW_USER).getParcelable(MainActivity.NEW_USER);
+
 
                         //get the associated button
                         //Precondition: there are only five buttons
                         int thisButtonNumber = aBundle.getInt(DonorHome.ASSOCIATED_BUTTON_KEY);
                         String thisItem = "";
                         Button thisButton = null;
+                        String itemGotIndex;
                         if (thisButtonNumber == R.id.wanted1)
                         {
+                            itemGotIndex = "0";
                             thisItem = user.getWantedItems().get(0);
                             thisButton = getActivity().findViewById(R.id.wanted1);
                         }
                         else if (thisButtonNumber == R.id.wanted2)
                         {
+                            itemGotIndex = "1";
                             thisItem = user.getWantedItems().get(1);
                             thisButton = getActivity().findViewById(R.id.wanted2);
                         }
                         else if (thisButtonNumber == R.id.wanted3)
                         {
+                            itemGotIndex = "2";
                             thisItem = user.getWantedItems().get(2);
                             thisButton = getActivity().findViewById(R.id.wanted3);
                         }
                         else if (thisButtonNumber == R.id.wanted4)
                         {
+                            itemGotIndex = "3";
                             thisItem = user.getWantedItems().get(3);
                             thisButton = getActivity().findViewById(R.id.wanted4);
                         }
                         else
                         {
+                            itemGotIndex = "4";
                             thisItem = user.getWantedItems().get(4);
                             thisButton = getActivity().findViewById(R.id.wanted5);
                         }
@@ -96,8 +104,12 @@ public class NumberPickerFragment extends DialogFragment {
                         int donationQuantity = numberPicker.getValue();
                         if (donationQuantity != 0)
                         {
+
                             thisButton.setText("You are donating " + donationQuantity + " " + thisItem + "'s.");
                             thisButton.setBackgroundColor(getResources().getColor(R.color.colorConfirm));
+                            //update numToDonateArray to save data
+                            ArrayList<String> numToDonate = user.getNumToDonate();
+                            numToDonate.set(Integer.parseInt(itemGotIndex), "" + donationQuantity);
                         }
                         else
                         {
@@ -107,6 +119,7 @@ public class NumberPickerFragment extends DialogFragment {
 
                         FragmentManager manage = getFragmentManager();
                         manage.popBackStack();
+
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

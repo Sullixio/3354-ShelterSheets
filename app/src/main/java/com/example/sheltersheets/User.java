@@ -22,10 +22,12 @@ public class User implements Parcelable //implements parcelable so instances can
     private int firstTimeUser; //ideally would be boolean but can only write boolean arrays w/ parcelable
     //a value of 0 denotes false, a value of one denotes true
     private int admin; // a "boolean"; a value of one denotes the user has food bank admin privileges
-    private ArrayList<String> favShelters; //this is an arraylist because I couldnt get it to work as an array.
-    private ArrayList<String> wantedItems; //most wanted items
-
     private int numDonations; //this is just for fun
+    private ArrayList<String> favShelters; //this is an arraylist because I couldnt get it to work as an array.
+    private ArrayList<String> wantedItems; //most wanted items. These should be in order of priority where 0 = greatest priority
+    private ArrayList<String> numToDonate; //index corresponds to wanted items; how many of x item to donate
+
+
 
     /**
      * Default constructor
@@ -42,8 +44,7 @@ public class User implements Parcelable //implements parcelable so instances can
         favShelters = new ArrayList<>();
        // Log.d("my", "In user.java: favShelters:" + favShelters.toString());
         wantedItems = new ArrayList<>();
-       // wantedItems.add(0, "Banana");
-       // wantedItems.add(1, "Stringg beans");
+        numToDonate = new ArrayList<>();
     }
 
     /**
@@ -55,8 +56,9 @@ public class User implements Parcelable //implements parcelable so instances can
         this.firstTimeUser = in.readInt();
         this.admin = in.readInt(); //by default, not a food bank admin
         this.numDonations = in.readInt();
-        this.favShelters =  in.readArrayList(null);
-        this.wantedItems = in.readArrayList(null);
+        this.favShelters = in.createStringArrayList();
+        this.wantedItems = in.createStringArrayList();
+        this.numToDonate = in.createStringArrayList();
     }
 
     //gets & sets
@@ -82,11 +84,9 @@ public class User implements Parcelable //implements parcelable so instances can
     public void incrementDonations(){ numDonations++; }
     public int getNumDonations(){return numDonations;}
     public ArrayList<String> getFavShelters(){return favShelters;}
-    public ArrayList<String> getWantedItems(){
-        Log.d("my", "we havent crashed yet");
-    return wantedItems;}
-    public void setWantedItems(ArrayList<String> updatedWantedItems)
-    {wantedItems = updatedWantedItems;}
+    public ArrayList<String> getWantedItems(){return wantedItems;}
+    public ArrayList<String> getNumToDonate(){return numToDonate;}
+
 
     //these must be implemented b/c we are implementing the Parcelable interface
 
@@ -111,8 +111,10 @@ public class User implements Parcelable //implements parcelable so instances can
         dest.writeString(name);
         dest.writeInt(firstTimeUser);
         dest.writeInt(admin);
+        dest.writeInt(numDonations);
         dest.writeStringList(favShelters);
         dest.writeStringList(wantedItems);
+        dest.writeStringList(numToDonate);
     }
 
 
