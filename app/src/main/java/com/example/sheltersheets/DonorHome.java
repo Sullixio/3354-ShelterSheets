@@ -211,6 +211,14 @@ public class DonorHome extends AppCompatActivity {
              startActivity(goToSettings);
              finish();
          }
+         else
+         {
+             Intent goToMaps = new Intent(DonorHome.this, MapsActivity.class);
+             Bundle aBundle = intent.getBundleExtra(MainActivity.NEW_USER);
+             goToMaps.putExtra(MainActivity.NEW_USER, aBundle);
+             startActivity(goToMaps);
+             finish();
+         }
 
          return true;
      }
