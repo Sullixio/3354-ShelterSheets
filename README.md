@@ -12,4 +12,5 @@ Whats new:
             numToDonate.
   
             Fixed issues with ArrayList<String> instance data being mutated across activities
-            Added swiping function in DonorHome so that users can swipe to go to their settings.
+            Added swiping function in DonorHome so that users can swipe to go to their settings, and to the map
+            Added map and associated toolbar to navigate to and from
