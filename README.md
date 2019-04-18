@@ -14,3 +14,5 @@ Whats new:
             Fixed issues with ArrayList<String> instance data being mutated across activities
             Added swiping function in DonorHome so that users can swipe to go to their settings, and to the map
             Added map and associated toolbar to navigate to and from
+  
+  #as of 4/17 the code will be hosted on my (Madison Pickering)'s repository as no more collaborators can be added to this one and Justin and mitch both need to be able to see the code
